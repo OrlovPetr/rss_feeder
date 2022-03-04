@@ -1,0 +1,21 @@
+include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  strong-mode:
+    implicit-casts: true
+    implicit-dynamic: true
+  errors:
+    cancel_subscriptions: error
+    close_sinks: error
+    unnecessary_statements: warning
+
+linter:
+  rules:
+    avoid_print: false
+    prefer_single_quotes: true
+    unawaited_futures: true
+    public_member_api_docs: true
+    use_to_and_as_if_applicable: true
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
