@@ -1,14 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:rss_feeder/core/logger/console_logger.dart';
+import 'package:rss_feeder/core/logger/local_storage_logger.dart';
 
 /// Application main logger instance
 class AppLogger {
   final ConsoleLogger _consoleLogger;
 
+  final LocalStorageLogger _localStorageLogger;
+
   /// Default [AppLogger] constructor
   const AppLogger({
     required ConsoleLogger consoleLogger,
-  }) : _consoleLogger = consoleLogger;
+    required LocalStorageLogger localStorageLogger,
+  })  : _consoleLogger = consoleLogger,
+        _localStorageLogger = localStorageLogger;
 
   /// Application log for system messages and errors
   void s({
@@ -17,7 +22,7 @@ class AppLogger {
     StackTrace? stackTrace,
   }) {
     final String _name = 'System Log | $name';
-    _consoleLogger.log(message: message, name: _name, stackTrace: stackTrace);
+    _log(message: message, name: _name, stackTrace: stackTrace);
   }
 
   /// Application log for network messages and errors
@@ -27,11 +32,16 @@ class AppLogger {
   }) {
     final String _name = 'Network Log | $name';
     final String _message = _networkErrorMessage(error);
-    _consoleLogger.log(
-      message: _message,
-      name: _name,
-      stackTrace: error.stackTrace,
-    );
+    _log(message: _message, name: _name, stackTrace: error.stackTrace);
+  }
+
+  void _log({
+    required String message,
+    required String name,
+    StackTrace? stackTrace,
+  }) {
+    _consoleLogger.log(message: message, name: name, stackTrace: stackTrace);
+    _localStorageLogger.log(message: message, name: name);
   }
 
   String _networkErrorMessage(DioError error) {
