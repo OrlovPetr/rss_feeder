@@ -33,10 +33,8 @@ class AppContainer {
   });
 
   /// Initialize application [AppContainer] entity
-  static AppContainer init({
-    required AppEnvironment environment,
-    required Config config,
-  }) {
+  static AppContainer init({required AppEnvironment environment}) {
+    final Config config = environment.config;
     final ConsoleLogger consoleLogger = ConsoleLogger();
     final LocalStorageLogger localStorageLogger = LocalStorageLogger();
     final AppLogger appLogger = AppLogger(
