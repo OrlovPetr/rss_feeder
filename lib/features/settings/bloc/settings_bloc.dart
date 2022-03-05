@@ -31,10 +31,37 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
   @override
   Stream<SettingsState> mapEventToState(SettingsEvent event) async* {
-    if (event is UpdateSettings) {
+    if (event is FetchSettings) {
+      yield* _fetchSettingsToState(event);
+    } else if (event is UpdateSettings) {
       yield* _updateSettingsToState(event);
     } else if (event is ResetSettings) {
       yield* _resetSettingsToState(event);
+    }
+  }
+
+  Stream<SettingsState> _fetchSettingsToState(FetchSettings event) async* {
+    try {
+      yield state.copyWith(loadState: LoadState.loading);
+
+      final AppSettings appSettings = await _settingsRepository.get();
+
+      yield state.copyWith(
+        loadState: LoadState.success,
+        appSettings: appSettings,
+      );
+    } catch (e, s) {
+      const String name = 'SettingsBloc.mapEventToState(FetchSettings)';
+      const String title = 'Ошибка получения данных';
+      const String message =
+          'Не удалось получить данные о настройках приложения';
+      _appLogger.s(message: e.toString(), name: name, stackTrace: s);
+      yield state.copyWith(loadState: LoadState.failure);
+      throw SystemException(
+        title: title,
+        message: message,
+        name: name,
+      );
     }
   }
 

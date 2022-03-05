@@ -25,3 +25,6 @@ class UpdateSettings extends SettingsEvent {
 
 /// [ResetSettings]
 class ResetSettings extends SettingsEvent {}
+
+/// [FetchSettings]
+class FetchSettings extends SettingsEvent {}

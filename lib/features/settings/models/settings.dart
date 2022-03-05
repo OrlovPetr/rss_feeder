@@ -15,6 +15,22 @@ enum AppThemeStyle {
   system,
 }
 
+/// Application [AppThemeStyle] extension
+extension AppThemeStyleExt on AppThemeStyle {
+  /// [AppThemeStyle] get [String] value
+  String get label {
+    switch (this) {
+      case AppThemeStyle.system:
+        return 'Системная';
+      case AppThemeStyle.dark:
+        return 'Темная';
+      case AppThemeStyle.light:
+      default:
+        return 'Светлая';
+    }
+  }
+}
+
 /// Application settings
 @JsonSerializable()
 class AppSettings implements AppJSONSerializable {

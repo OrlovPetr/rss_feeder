@@ -15,7 +15,7 @@ class AppBottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       currentIndex: initTab.index,
-      backgroundColor: Colors.blue,
+      backgroundColor: Colors.black54,
       selectedItemColor: Colors.orangeAccent,
       unselectedItemColor: Colors.white,
       items: <BottomNavigationBarItem>[
@@ -24,11 +24,15 @@ class AppBottomNavigationBar extends StatelessWidget {
         _item(CupertinoIcons.settings, 'Настройки'),
       ],
       onTap: (int index) {
-        final HomeTabsNavigatorCubit tabNavigator =
-            context.read<HomeTabsNavigatorCubit>();
-        tabNavigator.state = HomeTabExt.byIndex(index);
+        _onTap(index, context);
       },
     );
+  }
+
+  _onTap(int index, BuildContext context) {
+    final HomeTabsNavigatorCubit tabNavigator =
+        context.read<HomeTabsNavigatorCubit>();
+    tabNavigator.state = HomeTabExt.byIndex(index);
   }
 
   BottomNavigationBarItem _item(
