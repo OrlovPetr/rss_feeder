@@ -1,6 +1,4 @@
-import 'package:dio/dio.dart';
-import 'package:rss_feeder/core/logger/console_logger.dart';
-import 'package:rss_feeder/core/logger/local_storage_logger.dart';
+part of 'logger.dart';
 
 /// Application main logger instance
 class AppLogger {

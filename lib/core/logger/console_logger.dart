@@ -1,6 +1,4 @@
-import 'dart:developer' as dev;
-
-import 'package:flutter/foundation.dart';
+part of 'logger.dart';
 
 /// Application console logger for debug mode
 class ConsoleLogger {

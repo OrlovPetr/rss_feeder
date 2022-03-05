@@ -1,7 +1,6 @@
 import 'package:rss_feeder/core/enums/environment.dart';
-import 'package:rss_feeder/core/logger/app_logger.dart';
-import 'package:rss_feeder/core/logger/console_logger.dart';
 import 'package:rss_feeder/core/logger/local_storage_logger.dart';
+import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:rss_feeder/core/models/config.dart';
 import 'package:rss_feeder/services/local_storage.dart';
 import 'package:rss_feeder/services/network.dart';

@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:json_annotation/json_annotation.dart';
+import 'package:rss_feeder/core/interfaces/json_serializable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 part 'local_storage_logger.g.dart';
 
 /// Application local storage message entity
 @JsonSerializable()
-class LocalStorageLogMessage {
+class LocalStorageLogMessage implements AppJSONSerializable {
   /// Name of case source
   final String name;
 
@@ -28,7 +29,7 @@ class LocalStorageLogMessage {
   factory LocalStorageLogMessage.fromJson(Map<String, dynamic> json) =>
       _$LocalStorageLogMessageFromJson(json);
 
-  /// [toJson]
+  @override
   Map<String, dynamic> toJson() => _$LocalStorageLogMessageToJson(this);
 }
 

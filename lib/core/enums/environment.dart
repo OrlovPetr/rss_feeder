@@ -1,4 +1,5 @@
 import 'package:rss_feeder/core/models/config.dart';
+import 'package:rss_feeder/features/home/models/feed_theme.dart';
 
 /// Application environment type
 enum AppEnvironment {
@@ -23,7 +24,20 @@ extension AppEnvironmentConfig on AppEnvironment {
       default:
         return Config(
           baseUrl: 'https://ru.investing.com/rss/',
+          feeds: _feeds,
         );
     }
   }
 }
+
+List<AppFeedCategory> _feeds = [
+  AppFeedCategory(name: 'Обзор рынка', themes: _market),
+];
+
+List<AppFeedTheme> _market = [
+  AppFeedTheme(name: 'Главное', uri: 'market_overview.rss'),
+  AppFeedTheme(name: 'Технический анализ', uri: 'market_overview.rss'),
+  AppFeedTheme(name: 'Фундаментальный анализ', uri: 'market_overview.rss'),
+  AppFeedTheme(name: 'Главное', uri: 'market_overview.rss'),
+  AppFeedTheme(name: 'Главное', uri: 'market_overview.rss'),
+];

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:rss_feeder/core/logger/app_logger.dart';
-import 'package:rss_feeder/core/logger/console_logger.dart';
+import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Application local data storage service
