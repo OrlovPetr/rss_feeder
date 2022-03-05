@@ -1,3 +1,5 @@
+part of 'screens/settings_screen.dart';
+
 /// [SettingsScreen] texts
 class SettingsScreenStrings {
   /// [SettingsScreen] app bar title

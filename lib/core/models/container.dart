@@ -2,6 +2,7 @@ import 'package:rss_feeder/core/enums/environment.dart';
 import 'package:rss_feeder/core/logger/local_storage_logger.dart';
 import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:rss_feeder/core/models/config.dart';
+import 'package:rss_feeder/features/feeds/repositories/feed_repository.dart';
 import 'package:rss_feeder/features/settings/repository/settings_repository.dart';
 import 'package:rss_feeder/services/local_storage.dart';
 import 'package:rss_feeder/services/network.dart';
@@ -26,6 +27,9 @@ class AppContainer {
   /// Application [SettingsRepository] entity
   final SettingsRepository settingsRepository;
 
+  /// Application [FeedRepository] entity
+  final FeedRepository feedRepository;
+
   /// Default [AppContainer] container
   AppContainer({
     required this.environment,
@@ -34,6 +38,7 @@ class AppContainer {
     required this.networkService,
     required this.localStorageService,
     required this.settingsRepository,
+    required this.feedRepository,
   });
 
   /// Initialize application [AppContainer] entity
@@ -59,6 +64,10 @@ class AppContainer {
     // Repositories initialize
     final SettingsRepository settingsRepository = SettingsRepository(
       appLocalStorageService: appLocalStorageService,
+      appLogger: appLogger,
+    );
+    final FeedRepository feedRepository = FeedRepository(
+      appLogger: appLogger,
     );
 
     return AppContainer(
@@ -68,6 +77,7 @@ class AppContainer {
       networkService: networkService,
       localStorageService: appLocalStorageService,
       settingsRepository: settingsRepository,
+      feedRepository: feedRepository,
     );
   }
 }

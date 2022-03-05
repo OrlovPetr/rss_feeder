@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rss_feeder/features/feeds/screens/feeds_screen.dart';
 import 'package:rss_feeder/features/home/bloc/home_tabs_navigator.dart';
 import 'package:rss_feeder/features/home/models/home_tab.dart';
 import 'package:rss_feeder/features/home/widgets/home_widgets.dart';
@@ -30,9 +31,7 @@ class HomeScreen extends StatelessWidget {
         return const SettingsScreen();
       case HomeTab.home:
       default:
-        return Container(
-          color: Colors.orange,
-        );
+        return const FeedsScreen();
     }
   }
 }

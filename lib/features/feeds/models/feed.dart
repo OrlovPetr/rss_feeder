@@ -11,6 +11,9 @@ class AppFeedCategory {
     required this.id,
     required this.name,
   });
+
+  @override
+  String toString() => 'AppFeedCategory ($hashCode): {id: $id | name: $name}\n';
 }
 
 /// Application news feed theme
@@ -34,4 +37,8 @@ class AppFeedTheme {
     required this.name,
     required this.categories,
   });
+
+  @override
+  String toString() =>
+      'AppFeedTheme ($hashCode): {id: $id | uri: $uri | name: $name | categories: $categories}\n';
 }

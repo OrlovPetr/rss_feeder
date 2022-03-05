@@ -18,15 +18,16 @@ class FlashReportMode extends ReportMode {
         builder: (context, controller) {
           final flashBarTheme = FlashTheme.bar(context);
           return Flash(
-            backgroundColor: Colors.redAccent,
+            alignment: Alignment.topCenter,
+            backgroundColor: Colors.redAccent.withOpacity(0.95),
             enableVerticalDrag: flashBarTheme.enableVerticalDrag ?? true,
-            margin: flashBarTheme.margin ?? const EdgeInsets.all(16),
-            borderRadius: flashBarTheme.borderRadius,
+            margin: const EdgeInsets.all(8),
+            borderRadius: BorderRadius.circular(10),
             horizontalDismissDirection:
                 flashBarTheme.horizontalDismissDirection,
             brightness: flashBarTheme.brightness ?? Brightness.light,
-            behavior: flashBarTheme.behavior,
-            position: flashBarTheme.position,
+            // behavior: flashBarTheme.behavior,
+            // position: flashBarTheme.position,
             controller: controller,
             child: FlashBar(
               title: Text(

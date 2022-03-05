@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rss_feeder/core/enums/load_state.dart';
+import 'package:rss_feeder/core/exceptions/exceptions.dart';
 import 'package:rss_feeder/features/settings/bloc/settings_bloc.dart';
 import 'package:rss_feeder/features/settings/models/settings.dart';
-import 'package:rss_feeder/features/settings/res.dart';
 import 'package:rss_feeder/ui/ui_kit.dart';
 
+part '../res.dart';
 part '../widgets/settings_screen_button.dart';
 
 /// Application settings screen
@@ -16,23 +17,23 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SettingsBloc, SettingsState>(
-      builder: (BuildContext context, SettingsState state) {
-        if (state.loadState == LoadState.loading) {
-          return const LoaderScreen();
-        }
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.black54,
+        title: const Text(SettingsScreenStrings.appBarTitle),
+        leading: null,
+      ),
+      body: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (BuildContext context, SettingsState state) {
+          if (state.loadState == LoadState.loading) {
+            return const LoaderScreen();
+          }
 
-        if (state.loadState == LoadState.failure) {
-          return const ErrorScreen();
-        }
+          if (state.loadState == LoadState.failure) {
+            return const ErrorScreen();
+          }
 
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.black54,
-            title: const Text(SettingsScreenStrings.appBarTitle),
-            leading: null,
-          ),
-          body: RefreshIndicator(
+          return RefreshIndicator(
             onRefresh: () async {
               final SettingsBloc settingsBloc = context.read<SettingsBloc>();
               settingsBloc.add(FetchSettings());
@@ -46,9 +47,9 @@ class SettingsScreen extends StatelessWidget {
                 _appSettingsResetSettingsButton(context, state),
               ],
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -86,7 +87,10 @@ class SettingsScreen extends StatelessWidget {
         child: SettingsScreenButton(
           title: SettingsScreenStrings.appResetFeedTitle,
           iconData: CupertinoIcons.refresh,
-          onPressed: () {},
+          onPressed: () {
+            throw SystemException(
+                title: 'Test exception', message: 'Test message', name: 'Test');
+          },
         ),
       );
 
