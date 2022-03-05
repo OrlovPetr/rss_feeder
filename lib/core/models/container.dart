@@ -16,8 +16,8 @@ class AppContainer {
   /// Application [AppLogger] entity
   final AppLogger appLogger;
 
-  /// Application [AppNetwork] entity
-  final AppNetwork networkService;
+  /// Application [AppNetworkService] entity
+  final AppNetworkService networkService;
 
   /// Application [AppLocalStorage] entity
   final AppLocalStorage localStorageService;
@@ -40,7 +40,8 @@ class AppContainer {
       consoleLogger: consoleLogger,
       localStorageLogger: localStorageLogger,
     );
-    final AppNetwork networkService = AppNetwork(baseRSSUrl: config.baseUrl);
+    final AppNetworkService networkService =
+        AppNetworkService(baseRSSUrl: config.baseUrl);
     final AppLocalStorage appLocalStorage = AppLocalStorage(logger: appLogger);
 
     return AppContainer(

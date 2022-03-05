@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rss_feeder/core/exceptions/exceptions.dart';
 import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +29,12 @@ class AppLocalStorage {
     } catch (e, s) {
       const String name = 'AppLocalStorage.setData';
       logger.s(message: e.toString(), name: name, stackTrace: s);
-      rethrow;
+      throw SystemException(
+        title: 'Ошибка локального хранилища',
+        message: 'Не удалось сохранить данные в локальном хранилище',
+        name: name,
+        stackTrace: s,
+      );
     }
   }
 
@@ -40,7 +46,12 @@ class AppLocalStorage {
     } catch (e, s) {
       const String name = 'AppLocalStorage.getData';
       logger.s(message: e.toString(), name: name, stackTrace: s);
-      rethrow;
+      throw SystemException(
+        title: 'Ошибка локального хранилища',
+        message: 'Не удалось получить данные из локального хранилища',
+        name: name,
+        stackTrace: s,
+      );
     }
   }
 }
