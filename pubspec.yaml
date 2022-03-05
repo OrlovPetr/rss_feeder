@@ -10,12 +10,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  catcher: ^0.6.9
   cupertino_icons: ^1.0.4
   dio: ^4.0.4
   equatable: ^2.0.3
+  flash: ^2.0.3+2
+  flutter_bloc: ^7.3.0 #Don't update to 8 or higher version
   intl: 0.17.0
-  webview_flutter: ^3.0.1
   json_annotation: ^4.4.0
+  shared_preferences: ^2.0.13
+  webview_flutter: ^3.0.1
 
 dev_dependencies:
   flutter_test:
