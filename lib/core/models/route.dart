@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rss_feeder/features/home/screens/home_screen.dart';
 
 /// Application routes list
 enum Routes {
@@ -15,7 +16,7 @@ extension RoutesExt on Routes {
 /// Application routes
 class AppRouter {
   Map<Routes, WidgetBuilder> _routes(BuildContext context) => {
-        Routes.home: (BuildContext context) => const SizedBox.shrink(),
+        Routes.home: (BuildContext context) => const HomeScreen(),
       };
 
   /// Return [Map] with [String] key and [WidgetBuilder] value routes list

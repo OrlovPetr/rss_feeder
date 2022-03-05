@@ -1,7 +1,9 @@
+import 'package:catcher/catcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rss_feeder/core/models/container.dart';
 import 'package:rss_feeder/core/models/route.dart';
+import 'package:rss_feeder/features/home/bloc/home_tabs_navigator.dart';
 import 'package:rss_feeder/features/settings/bloc/settings_bloc.dart';
 import 'package:rss_feeder/features/settings/models/settings.dart';
 
@@ -27,6 +29,9 @@ class AppMainWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<HomeTabsNavigatorCubit>(
+          create: (BuildContext context) => HomeTabsNavigatorCubit(),
+        ),
         BlocProvider<SettingsBloc>(
           create: (BuildContext context) => SettingsBloc(
             appSettings: appSettings,
@@ -37,12 +42,10 @@ class AppMainWidget extends StatelessWidget {
       ],
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (BuildContext context, SettingsState state) => MaterialApp(
+          navigatorKey: Catcher.navigatorKey,
+          theme: _getTheme(context, state),
           initialRoute: Routes.home.name,
           routes: _appRouter.routes(context),
-          builder: (BuildContext context, Widget? widget) => Theme(
-            data: _getTheme(context, state),
-            child: Scaffold(),
-          ),
         ),
       ),
     );
