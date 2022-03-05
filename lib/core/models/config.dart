@@ -1,4 +1,4 @@
-import 'package:rss_feeder/features/home/models/feed_theme.dart';
+import 'package:rss_feeder/features/home/models/feed.dart';
 
 /// Application config
 class Config {

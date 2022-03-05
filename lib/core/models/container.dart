@@ -2,6 +2,7 @@ import 'package:rss_feeder/core/enums/environment.dart';
 import 'package:rss_feeder/core/logger/local_storage_logger.dart';
 import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:rss_feeder/core/models/config.dart';
+import 'package:rss_feeder/features/settings/repository/settings_repository.dart';
 import 'package:rss_feeder/services/local_storage.dart';
 import 'package:rss_feeder/services/network.dart';
 
@@ -19,8 +20,11 @@ class AppContainer {
   /// Application [AppNetworkService] entity
   final AppNetworkService networkService;
 
-  /// Application [AppLocalStorage] entity
-  final AppLocalStorage localStorageService;
+  /// Application [AppLocalStorageService] entity
+  final AppLocalStorageService localStorageService;
+
+  /// Application [SettingsRepository] entity
+  final SettingsRepository settingsRepository;
 
   /// Default [AppContainer] container
   AppContainer({
@@ -29,10 +33,13 @@ class AppContainer {
     required this.appLogger,
     required this.networkService,
     required this.localStorageService,
+    required this.settingsRepository,
   });
 
   /// Initialize application [AppContainer] entity
-  static AppContainer init({required AppEnvironment environment}) {
+  static Future<AppContainer> init({
+    required AppEnvironment environment,
+  }) async {
     final Config config = environment.config;
     final ConsoleLogger consoleLogger = ConsoleLogger();
     final LocalStorageLogger localStorageLogger = LocalStorageLogger();
@@ -40,16 +47,27 @@ class AppContainer {
       consoleLogger: consoleLogger,
       localStorageLogger: localStorageLogger,
     );
+
+    // Services initialize
     final AppNetworkService networkService =
         AppNetworkService(baseRSSUrl: config.baseUrl);
-    final AppLocalStorage appLocalStorage = AppLocalStorage(logger: appLogger);
+    final AppLocalStorageService appLocalStorageService =
+        AppLocalStorageService(logger: appLogger);
+
+    await appLocalStorageService.init();
+
+    // Repositories initialize
+    final SettingsRepository settingsRepository = SettingsRepository(
+      appLocalStorageService: appLocalStorageService,
+    );
 
     return AppContainer(
       environment: environment,
       config: config,
       appLogger: appLogger,
       networkService: networkService,
-      localStorageService: appLocalStorage,
+      localStorageService: appLocalStorageService,
+      settingsRepository: settingsRepository,
     );
   }
 }

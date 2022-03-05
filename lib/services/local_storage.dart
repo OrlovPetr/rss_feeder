@@ -5,18 +5,18 @@ import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Application local data storage service
-class AppLocalStorage {
+class AppLocalStorageService {
   /// [ConsoleLogger] instance
   final AppLogger logger;
 
   late SharedPreferences? _prefs;
 
-  /// Default [AppLocalStorage] constructor
-  AppLocalStorage({
+  /// Default [AppLocalStorageService] constructor
+  AppLocalStorageService({
     required this.logger,
   });
 
-  /// Initialize [SharedPreferences] instance in [AppLocalStorage] service
+  /// Initialize [SharedPreferences] instance in [AppLocalStorageService] service
   Future<void> init() async {
     _prefs = await SharedPreferences.getInstance();
   }
@@ -39,16 +39,32 @@ class AppLocalStorage {
   }
 
   /// Get application data and transform from JSON [String] format
-  Future<dynamic> getData(String key) {
+  Future<dynamic> getData(String key) async {
     try {
-      final String data = _prefs?.getString(key) ?? '';
-      return jsonDecode(data);
+      final String? data = _prefs?.getString(key);
+      return (data?.isNotEmpty ?? false) ? jsonDecode(data!) : null;
     } catch (e, s) {
       const String name = 'AppLocalStorage.getData';
       logger.s(message: e.toString(), name: name, stackTrace: s);
       throw SystemException(
         title: 'Ошибка локального хранилища',
         message: 'Не удалось получить данные из локального хранилища',
+        name: name,
+        stackTrace: s,
+      );
+    }
+  }
+
+  /// Clear application data by [String] key in local storage
+  Future<void> clearData(String key) async {
+    try {
+      await _prefs?.remove(key);
+    } catch (e, s) {
+      const String name = 'AppLocalStorage.clearData';
+      logger.s(message: e.toString(), name: name, stackTrace: s);
+      throw SystemException(
+        title: 'Ошибка локального хранилища',
+        message: 'Не удалось удалить данные из локального хранилища',
         name: name,
         stackTrace: s,
       );

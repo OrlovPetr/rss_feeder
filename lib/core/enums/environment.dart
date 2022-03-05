@@ -1,5 +1,5 @@
 import 'package:rss_feeder/core/models/config.dart';
-import 'package:rss_feeder/features/home/models/feed_theme.dart';
+import 'package:rss_feeder/features/home/models/feed.dart';
 
 /// Application environment type
 enum AppEnvironment {
