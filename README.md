@@ -1,16 +1,42 @@
-# rss_feeder
+# rss_feeder (in progress)
 
-Test Investing.com RSS feeder App
+Investing.com RSS feeder App
 
-## Getting Started
+## About
 
-This project is a starting point for a Flutter application.
+Example application.
 
-A few resources to get you started if this is your first Flutter project:
+Shows RSS feeds from [Investing.com](https://ru.investing.com/webmaster-tools/rss) source.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## General
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+App built with [Dart](https://dart.dev) v.2.14.0 and [Flutter](https://flutter.dev) v.2.5.3
+for [Android](https://www.android.com) and [iOS](https://www.apple.com/ru/ios) platforms.
+
+Uses community plugins and packages from [Pub](https://pub.dev).
+
+More info in [pubspec](https://gitlab.com/g3n3515/rss-feeder/-/blob/dev/pubspec.yaml) file.
+
+## Functionality
+
+1. Home Screen with list of categorized RSS feeds
+   
+   1.1. Screen with RSS feed (*in progress*)
+
+   1.2. Screen (webview) with chosen news item details (*in progress*)
+   
+2. Favorites screen with list of favorite news (*in progress*)
+   (stores with [shared_preferences](https://pub.dev/packages/shared_preferences) in local device store)
+   
+   2.1. Screen (webview) with chosen news item details (*in progress*)
+   
+3. Settings screen with next settings:
+   
+   3.1. App theme
+   
+   3.2. RSS feed refresh duration time (in seconds)
+   
+   3.3. Clear favorites main button
+   
+   3.4. Reset all app settings button
+   
