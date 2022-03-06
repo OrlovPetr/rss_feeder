@@ -2,7 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rss_feeder/core/enums/load_state.dart';
+import 'package:rss_feeder/core/models/route.dart';
 import 'package:rss_feeder/features/feeds/bloc/feeds_bloc.dart';
+import 'package:rss_feeder/features/feeds/bloc/rss_feed_bloc.dart';
 import 'package:rss_feeder/features/feeds/models/feed.dart';
 import 'package:rss_feeder/ui/ui_kit.dart';
 
@@ -20,6 +22,7 @@ class FeedsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Colors.black54,
         title: const Text(FeedsScreenStrings.appBarTitle),
         leading: null,

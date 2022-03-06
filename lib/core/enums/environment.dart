@@ -23,7 +23,7 @@ extension AppEnvironmentConfig on AppEnvironment {
       case AppEnvironment.development:
       default:
         return Config(
-          baseUrl: '',
+          baseUrl: 'https://ru.investing.com/rss/',
           feeds: _feeds,
           feedCategories: _categories,
         );

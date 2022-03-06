@@ -2,7 +2,9 @@ import 'package:rss_feeder/core/enums/environment.dart';
 import 'package:rss_feeder/core/logger/local_storage_logger.dart';
 import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:rss_feeder/core/models/config.dart';
+import 'package:rss_feeder/features/feeds/providers/rss_feed_provider.dart';
 import 'package:rss_feeder/features/feeds/repositories/feed_repository.dart';
+import 'package:rss_feeder/features/feeds/repositories/rss_feed_repository.dart';
 import 'package:rss_feeder/features/settings/repository/settings_repository.dart';
 import 'package:rss_feeder/services/local_storage.dart';
 import 'package:rss_feeder/services/network.dart';
@@ -30,6 +32,9 @@ class AppContainer {
   /// Application [FeedRepository] entity
   final FeedRepository feedRepository;
 
+  /// Application [RSSFeedRepository] entity
+  final RSSFeedRepository rssFeedRepository;
+
   /// Default [AppContainer] container
   AppContainer({
     required this.environment,
@@ -39,6 +44,7 @@ class AppContainer {
     required this.localStorageService,
     required this.settingsRepository,
     required this.feedRepository,
+    required this.rssFeedRepository,
   });
 
   /// Initialize application [AppContainer] entity
@@ -61,10 +67,16 @@ class AppContainer {
 
     await appLocalStorageService.init();
 
+    // Providers initialize
+    final RSSFeedProvider rssFeedProvider =
+        RSSFeedProvider(appNetworkService: networkService);
+
     // Repositories initialize
     final SettingsRepository settingsRepository =
         SettingsRepository(appLocalStorageService: appLocalStorageService);
     const FeedRepository feedRepository = FeedRepository();
+    final RSSFeedRepository rssFeedRepository =
+        RSSFeedRepository(rssFeedProvider: rssFeedProvider);
 
     return AppContainer(
       environment: environment,
@@ -74,6 +86,7 @@ class AppContainer {
       localStorageService: appLocalStorageService,
       settingsRepository: settingsRepository,
       feedRepository: feedRepository,
+      rssFeedRepository: rssFeedRepository,
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rss_feeder/core/models/container.dart';
 import 'package:rss_feeder/core/models/route.dart';
 import 'package:rss_feeder/features/feeds/bloc/feeds_bloc.dart';
+import 'package:rss_feeder/features/feeds/bloc/rss_feed_bloc.dart';
 import 'package:rss_feeder/features/home/bloc/home_tabs_navigator.dart';
 import 'package:rss_feeder/features/settings/bloc/settings_bloc.dart';
 import 'package:rss_feeder/features/settings/models/settings.dart';
@@ -46,6 +47,10 @@ class AppMainWidget extends StatelessWidget {
             fullCategoriesList: container.config.feedCategories,
             fullFeedsList: container.config.feeds,
           ),
+        ),
+        BlocProvider<RSSFeedBloc>(
+          create: (BuildContext context) =>
+              RSSFeedBloc(rssFeedRepository: container.rssFeedRepository),
         ),
       ],
       child: BlocBuilder<SettingsBloc, SettingsState>(
