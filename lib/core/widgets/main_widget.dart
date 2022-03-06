@@ -7,6 +7,7 @@ import 'package:rss_feeder/features/feeds/bloc/feeds_bloc.dart';
 import 'package:rss_feeder/features/home/bloc/home_tabs_navigator.dart';
 import 'package:rss_feeder/features/settings/bloc/settings_bloc.dart';
 import 'package:rss_feeder/features/settings/models/settings.dart';
+import 'package:rss_feeder/services/theme_service.dart';
 
 /// Main application widget
 class AppMainWidget extends StatelessWidget {
@@ -58,21 +59,6 @@ class AppMainWidget extends StatelessWidget {
     );
   }
 
-  ThemeData _getTheme(BuildContext context, SettingsState state) {
-    switch (state.appSettings.appThemeStyle) {
-      case AppThemeStyle.system:
-        {
-          final Brightness brightness =
-              MediaQuery.of(context).platformBrightness;
-          bool isDarkMode = brightness == Brightness.dark;
-
-          return isDarkMode ? ThemeData.dark() : ThemeData.light();
-        }
-      case AppThemeStyle.dark:
-        return ThemeData.dark();
-      case AppThemeStyle.light:
-      default:
-        return ThemeData.light();
-    }
-  }
+  ThemeData _getTheme(BuildContext context, SettingsState state) =>
+      ThemeService.currentTheme(context, state.appSettings.appThemeStyle);
 }

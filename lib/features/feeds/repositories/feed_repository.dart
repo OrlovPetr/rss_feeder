@@ -1,16 +1,11 @@
 import 'package:rss_feeder/core/exceptions/exceptions.dart';
 import 'package:rss_feeder/core/extensions/list_extension.dart';
-import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:rss_feeder/features/feeds/models/feed.dart';
 
 /// Application [FeedRepository] for feeds
 class FeedRepository {
-  final AppLogger _appLogger;
-
   /// Default [FeedRepository] constructor
-  const FeedRepository({
-    required AppLogger appLogger,
-  }) : _appLogger = appLogger;
+  const FeedRepository();
 
   /// Filter [AppFeedCategory] by id list
   List<AppFeedCategory> filterFeedCategoriesList(
@@ -23,15 +18,11 @@ class FeedRepository {
               categoryIds.isNotEmpty ? categoryIds.contains(category.id) : true)
           .toList();
     } catch (e, s) {
-      const String name = 'FeedRepository.filterFeedCategoriesList';
-      const String title = 'Ошибка фильтрации данных';
-      const String message =
-          'Не удалось отфильтровать категории потоков новостей';
-      _appLogger.s(message: e.toString(), name: name, stackTrace: s);
       throw SystemException(
-        title: title,
-        message: message,
-        name: name,
+        title: 'Ошибка фильтрации данных',
+        message: 'Не удалось отфильтровать категории потоков новостей',
+        name: 'FeedRepository.filterFeedCategoriesList',
+        stackTrace: s,
       );
     }
   }
@@ -50,14 +41,11 @@ class FeedRepository {
               : true)
           .toList();
     } catch (e, s) {
-      const String name = 'FeedRepository.filterFeedsList';
-      const String title = 'Ошибка фильтрации данных';
-      const String message = 'Не удалось отфильтровать потоки новостей';
-      _appLogger.s(message: e.toString(), name: name, stackTrace: s);
       throw SystemException(
-        title: title,
-        message: message,
-        name: name,
+        title: 'Ошибка фильтрации данных',
+        message: 'Не удалось отфильтровать потоки новостей',
+        name: 'FeedRepository.filterFeedsList',
+        stackTrace: s,
       );
     }
   }

@@ -1,20 +1,14 @@
 import 'dart:convert';
 
 import 'package:rss_feeder/core/exceptions/exceptions.dart';
-import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Application local data storage service
 class AppLocalStorageService {
-  /// [ConsoleLogger] instance
-  final AppLogger logger;
-
   late SharedPreferences? _prefs;
 
   /// Default [AppLocalStorageService] constructor
-  AppLocalStorageService({
-    required this.logger,
-  });
+  AppLocalStorageService();
 
   /// Initialize [SharedPreferences] instance in [AppLocalStorageService] service
   Future<void> init() async {
@@ -27,12 +21,10 @@ class AppLocalStorageService {
       final String jsonData = jsonEncode(data);
       await _prefs?.setString(key, jsonData);
     } catch (e, s) {
-      const String name = 'AppLocalStorage.setData';
-      logger.s(message: e.toString(), name: name, stackTrace: s);
       throw SystemException(
         title: 'Ошибка локального хранилища',
         message: 'Не удалось сохранить данные в локальном хранилище',
-        name: name,
+        name: 'AppLocalStorage.setData',
         stackTrace: s,
       );
     }
@@ -44,12 +36,10 @@ class AppLocalStorageService {
       final String? data = _prefs?.getString(key);
       return (data?.isNotEmpty ?? false) ? jsonDecode(data!) : null;
     } catch (e, s) {
-      const String name = 'AppLocalStorage.getData';
-      logger.s(message: e.toString(), name: name, stackTrace: s);
       throw SystemException(
         title: 'Ошибка локального хранилища',
         message: 'Не удалось получить данные из локального хранилища',
-        name: name,
+        name: 'AppLocalStorage.getData',
         stackTrace: s,
       );
     }
@@ -60,12 +50,10 @@ class AppLocalStorageService {
     try {
       await _prefs?.remove(key);
     } catch (e, s) {
-      const String name = 'AppLocalStorage.clearData';
-      logger.s(message: e.toString(), name: name, stackTrace: s);
       throw SystemException(
         title: 'Ошибка локального хранилища',
         message: 'Не удалось удалить данные из локального хранилища',
-        name: name,
+        name: 'AppLocalStorage.clearData',
         stackTrace: s,
       );
     }

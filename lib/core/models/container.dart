@@ -57,18 +57,14 @@ class AppContainer {
     final AppNetworkService networkService =
         AppNetworkService(baseRSSUrl: config.baseUrl);
     final AppLocalStorageService appLocalStorageService =
-        AppLocalStorageService(logger: appLogger);
+        AppLocalStorageService();
 
     await appLocalStorageService.init();
 
     // Repositories initialize
-    final SettingsRepository settingsRepository = SettingsRepository(
-      appLocalStorageService: appLocalStorageService,
-      appLogger: appLogger,
-    );
-    final FeedRepository feedRepository = FeedRepository(
-      appLogger: appLogger,
-    );
+    final SettingsRepository settingsRepository =
+        SettingsRepository(appLocalStorageService: appLocalStorageService);
+    const FeedRepository feedRepository = FeedRepository();
 
     return AppContainer(
       environment: environment,
