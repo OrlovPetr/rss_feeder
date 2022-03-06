@@ -21,6 +21,6 @@ Future<void> appMain(AppEnvironment environment) async {
     ),
     releaseConfig: options,
     debugConfig: options,
-    // enableLogger: false,
+    enableLogger: false,
   );
 }

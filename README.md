@@ -1,6 +1,16 @@
 # rss_feeder
 
-Test Investing.com RSS feeder App
+Investing.com RSS feeder App
+
+(in progress)
+
+## General
+
+Example application.
+
+Shows RSS feeds from [Investing.com](https://ru.investing.com/webmaster-tools/rss) source.
+
+
 
 ## Getting Started
 
