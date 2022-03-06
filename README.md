@@ -1,26 +1,18 @@
-# rss_feeder
+# rss_feeder (in progress)
 
 Investing.com RSS feeder App
 
-(in progress)
-
-## General
+## About
 
 Example application.
 
 Shows RSS feeds from [Investing.com](https://ru.investing.com/webmaster-tools/rss) source.
 
+## General
 
+App built with [Dart](https://dart.dev) v.2.14.0 and [Flutter](https://flutter.dev) v.2.5.3
+for [Android](https://www.android.com) and [iOS](https://www.apple.com/ru/ios) platforms.
 
-## Getting Started
+Uses community plugins and packages from [Pub](https://pub.dev).
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+More info in [pubspec](https://gitlab.com/g3n3515/rss-feeder/-/blob/dev/pubspec.yaml) file.
