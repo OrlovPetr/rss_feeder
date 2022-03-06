@@ -1,5 +1,11 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'package:rss_feeder/core/interfaces/json_serializable.dart';
+
+part 'rss_feed_item.g.dart';
+
 /// Application RSS feed item
-class RSSFeedItem {
+@JsonSerializable()
+class RSSFeedItem implements AppJSONSerializable {
   /// RSS feed item item
   final String? title;
 
@@ -20,7 +26,25 @@ class RSSFeedItem {
     required this.url,
   });
 
+  /// [LabOrderResults.fromJson]
+  factory RSSFeedItem.fromJson(Map<String, dynamic> json) =>
+      _$RSSFeedItemFromJson(json);
+
   @override
-  String toString() =>
-      'RSSFeedItem ($hashCode): {title: $title | date: $date | author: $author | url: $url}';
+  Map<String, dynamic> toJson() => _$RSSFeedItemToJson(this);
+
+  @override
+  String toString() {
+    final Map<String, dynamic> entityData = toJson();
+    final StringBuffer result = StringBuffer('AppSettings ($hashCode): {');
+    final List<String> rawData = [];
+
+    entityData.forEach((String key, dynamic value) {
+      rawData.add('$key : $value');
+    });
+
+    result.write(rawData.join(' | '));
+    result.write('}\n');
+    return result.toString();
+  }
 }

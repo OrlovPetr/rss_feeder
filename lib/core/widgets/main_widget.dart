@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rss_feeder/core/models/container.dart';
 import 'package:rss_feeder/core/models/route.dart';
+import 'package:rss_feeder/features/favorites/bloc/favorites_bloc.dart';
 import 'package:rss_feeder/features/feeds/bloc/feeds_bloc.dart';
 import 'package:rss_feeder/features/feeds/bloc/rss_feed_bloc.dart';
+import 'package:rss_feeder/features/feeds/models/rss_feed_item.dart';
 import 'package:rss_feeder/features/home/bloc/home_tabs_navigator.dart';
 import 'package:rss_feeder/features/settings/bloc/settings_bloc.dart';
 import 'package:rss_feeder/features/settings/models/settings.dart';
@@ -18,6 +20,9 @@ class AppMainWidget extends StatelessWidget {
   /// Application settings initial entity
   final AppSettings appSettings;
 
+  /// Application initial favorites entity list
+  final List<RSSFeedItem> favorites;
+
   final AppRouter _appRouter;
 
   /// Default [AppMainWidget] constructor
@@ -25,6 +30,7 @@ class AppMainWidget extends StatelessWidget {
     Key? key,
     required this.container,
     required this.appSettings,
+    required this.favorites,
   })  : _appRouter = AppRouter(),
         super(key: key);
 
@@ -51,6 +57,9 @@ class AppMainWidget extends StatelessWidget {
         BlocProvider<RSSFeedBloc>(
           create: (BuildContext context) =>
               RSSFeedBloc(rssFeedRepository: container.rssFeedRepository),
+        ),
+        BlocProvider<FavoritesBloc>(
+          create: (BuildContext context) => FavoritesBloc(favorites: favorites),
         ),
       ],
       child: BlocBuilder<SettingsBloc, SettingsState>(
