@@ -15,7 +15,7 @@ for [Android](https://www.android.com) and [iOS](https://www.apple.com/ru/ios) p
 
 Uses community plugins and packages from [Pub](https://pub.dev).
 
-More info in [pubspec](https://gitlab.com/g3n3515/rss-feeder/-/blob/dev/pubspec.yaml) file.
+More info in *pubspec* file.
 
 ## Functionality
 
