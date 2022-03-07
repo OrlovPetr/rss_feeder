@@ -18,7 +18,8 @@ class RSSFeedAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       leadingWidth: 90,
       backgroundColor: Colors.black54,
-      title: Text(state.appRss?.title ?? 'Нет данных о потоке'),
+      title:
+          Text(state.appRss?.title ?? RSSFeedScreenStrings.hasNoDataAboutFeed),
       leading: Padding(
         padding: const EdgeInsets.only(right: 8),
         child: TextButton(
@@ -34,7 +35,7 @@ class RSSFeedAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               Text(
-                'Назад',
+                UIKitStrings.appBarDefaultBackTitle,
                 style: Theme.of(context).textTheme.button!.copyWith(
                       color: Colors.white,
                     ),

@@ -26,4 +26,13 @@ class ThemeService {
         return ThemeData.light();
     }
   }
+
+  /// Check [ThemeData] and return [Color] for refresh indicator
+  static Color refreshIndicatorColor(ThemeData themeData) {
+    if (themeData == ThemeData.dark()) {
+      return Colors.orangeAccent;
+    } else {
+      return Colors.black54;
+    }
+  }
 }

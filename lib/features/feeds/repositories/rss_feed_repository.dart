@@ -3,6 +3,7 @@ import 'package:rss_feeder/core/exceptions/exceptions.dart';
 import 'package:rss_feeder/features/feeds/models/rss.dart';
 import 'package:rss_feeder/features/feeds/models/rss_feed_item.dart';
 import 'package:rss_feeder/features/feeds/providers/rss_feed_provider.dart';
+import 'package:rss_feeder/features/feeds/screens/feeds_screen.dart';
 import 'package:webfeed/webfeed.dart';
 
 /// [RSSFeedRepository]
@@ -34,8 +35,9 @@ class RSSFeedRepository {
             [];
 
         return AppRSS(
-          title: rssFeed.title ?? 'Нет данных о потоке',
-          description: rssFeed.description ?? 'Нет данных...',
+          title: rssFeed.title ?? RSSFeedScreenStrings.hasNoDataAboutFeed,
+          description: rssFeed.description ??
+              RSSFeedScreenStrings.hasNoDataAboutFeedDescription,
           link: rssFeed.link ?? '',
           items: items,
         );

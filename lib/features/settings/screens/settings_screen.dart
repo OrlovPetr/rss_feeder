@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rss_feeder/core/enums/load_state.dart';
 import 'package:rss_feeder/core/exceptions/exceptions.dart';
 import 'package:rss_feeder/core/extensions/list_extension.dart';
+import 'package:rss_feeder/features/favorites/bloc/favorites_bloc.dart';
 import 'package:rss_feeder/features/settings/bloc/settings_bloc.dart';
 import 'package:rss_feeder/features/settings/models/settings.dart';
 import 'package:rss_feeder/services/theme_service.dart';
@@ -49,28 +50,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (BuildContext context, SettingsState state) {
-          if (state.loadState == LoadState.loading) {
-            return const LoaderScreen();
-          }
-
-          if (state.loadState == LoadState.failure) {
-            return const ErrorScreen();
-          }
+          final ThemeData themeData = ThemeService.currentTheme(
+              context, state.appSettings.appThemeStyle);
 
           return RefreshIndicator(
             onRefresh: () async {
               final SettingsBloc settingsBloc = context.read<SettingsBloc>();
               settingsBloc.add(FetchSettings());
             },
-            color: Colors.black54,
-            child: CustomScrollView(
-              slivers: [
-                _appThemeButton(context, state),
-                _feedRefreshDurationButton(context, state),
-                _appSettingsResetFeedButton(context, state),
-                _appSettingsResetSettingsButton(context, state),
-              ],
-            ),
+            color: ThemeService.refreshIndicatorColor(themeData),
+            child: state.loadState == LoadState.loading
+                ? const LoaderScreen()
+                : state.loadState == LoadState.failure
+                    ? const ErrorScreen()
+                    : CustomScrollView(
+                        slivers: [
+                          _appThemeButton(context, state),
+                          _feedRefreshDurationButton(context, state),
+                          _appSettingsResetFeedButton(context, state),
+                          _appSettingsResetSettingsButton(context, state),
+                        ],
+                      ),
           );
         },
       ),
@@ -236,11 +236,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           title: SettingsScreenStrings.appResetFeedTitle,
           iconData: CupertinoIcons.refresh,
           onPressed: () {
-            throw SystemException(
-              title: 'Test exception',
-              message: 'Test message',
-              name: 'Test',
-            );
+            context.read<FavoritesBloc>().add(FavoritesClear());
           },
         ),
       );

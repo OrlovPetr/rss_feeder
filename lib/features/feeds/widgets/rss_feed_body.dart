@@ -16,6 +16,18 @@ class RSSFeedBody extends StatelessWidget {
     final List<RSSFeedItem> items =
         (state.appRss?.items.isNotEmpty ?? false) ? state.appRss!.items : [];
 
+    if (items.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        child: Text(
+          RSSFeedScreenStrings.emptyListMessage,
+          style: Theme.of(context).textTheme.headline6!.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+        ),
+      );
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView.builder(

@@ -9,7 +9,7 @@ abstract class RSSFeedEvent extends Equatable {
 /// [GetRSSFeed]
 class GetRSSFeed extends RSSFeedEvent {
   /// RSS feed uri
-  final String uri;
+  final String? uri;
 
   /// Default [GetRSSFeed] constructor
   GetRSSFeed({

@@ -59,7 +59,10 @@ class AppMainWidget extends StatelessWidget {
               RSSFeedBloc(rssFeedRepository: container.rssFeedRepository),
         ),
         BlocProvider<FavoritesBloc>(
-          create: (BuildContext context) => FavoritesBloc(favorites: favorites),
+          create: (BuildContext context) => FavoritesBloc(
+            favorites: favorites,
+            favoritesRepository: container.favoritesRepository,
+          ),
         ),
       ],
       child: BlocBuilder<SettingsBloc, SettingsState>(

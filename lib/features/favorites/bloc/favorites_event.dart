@@ -6,6 +6,9 @@ abstract class FavoritesEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+/// [FavoritesRefresh]
+class FavoritesRefresh extends FavoritesEvent {}
+
 /// [FavoritesAdd]
 class FavoritesAdd extends FavoritesEvent {
   /// [RSSFeedItem] item to add

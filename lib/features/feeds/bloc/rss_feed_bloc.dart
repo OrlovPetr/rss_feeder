@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rss_feeder/core/enums/load_state.dart';
+import 'package:rss_feeder/core/exceptions/exceptions.dart';
 import 'package:rss_feeder/features/feeds/models/rss.dart';
 import 'package:rss_feeder/features/feeds/models/rss_feed_item.dart';
 import 'package:rss_feeder/features/feeds/repositories/rss_feed_repository.dart';
@@ -33,11 +34,21 @@ class RSSFeedBloc extends Bloc<RSSFeedEvent, RSSFeedState> {
     try {
       yield state.copyWith(loadState: LoadState.loading);
 
-      final AppRSS? rss = await _rssFeedRepository.getRSSFeed(event.uri);
+      if (event.uri?.isEmpty ?? false) {
+        yield state.copyWith(loadState: LoadState.failure);
+        throw SystemException(
+          title: 'Некорректный запрос',
+          message: 'Нет данных об адресе запроса RSS потока',
+          name: 'RSSFeedBloc._getRSSFeedToState',
+        );
+      }
+
+      final AppRSS? rss = await _rssFeedRepository.getRSSFeed(event.uri!);
 
       yield state.copyWith(
         loadState: LoadState.success,
         appRss: rss,
+        uri: event.uri,
       );
     } catch (e) {
       yield state.copyWith(loadState: LoadState.failure);

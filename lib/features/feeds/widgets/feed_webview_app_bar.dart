@@ -34,7 +34,7 @@ class FeedWebViewAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
               Text(
-                'Назад',
+                UIKitStrings.appBarDefaultBackTitle,
                 style: Theme.of(context).textTheme.button!.copyWith(
                       color: Colors.white,
                     ),

@@ -1,47 +1,26 @@
-part of '../screens/rss_feed_screen.dart';
+part of '../screens/favorites_screen.dart';
 
-/// [RSSFeedScreen] item
-class RSSFeedItemWidget extends StatelessWidget {
-  /// [RSSFeedItemWidget] parsed item
+/// [FavoritesScreen] item widget
+class FavoritesItem extends StatelessWidget {
+  /// Favorites screen item data
   final RSSFeedItem item;
 
-  /// [RSSFeedItemWidget] position in list
+  /// [FavoritesItem] position in list
   final int index;
 
-  /// [RSSFeedItemWidget] widgets [List] length
+  /// [FavoritesItem] widgets [List] length
   final int length;
 
-  /// Default [RSSFeedItemWidget] constructor
-  const RSSFeedItemWidget({
+  /// Default [FavoritesItem] constructor
+  const FavoritesItem({
     Key? key,
     required this.item,
     required this.index,
     required this.length,
   }) : super(key: key);
 
-  BorderSide get _borderSide => !_isLast
-      ? const BorderSide(
-          color: Colors.black12,
-        )
-      : BorderSide.none;
-
-  bool get _isFirst => index == 0;
-
-  bool get _isLast => index == length - 1;
-
-  String get _date {
-    final String date =
-        '${item.date!.day}.${item.date!.month}.${item.date!.year} ${item.date!.hour}:${item.date!.minute}';
-
-    return item.date != null
-        ? RSSFeedScreenStrings.rssFeedItemWidgetDate.replaceAll('#TAG', date)
-        : RSSFeedScreenStrings.rssFeedItemWidgetDateEmpty;
-  }
-
   @override
   Widget build(BuildContext context) {
-    final FavoritesBloc favoritesBloc = context.watch<FavoritesBloc>();
-
     return Padding(
       padding: EdgeInsets.only(
         top: _isFirst ? 20 : 0,
@@ -65,28 +44,8 @@ class RSSFeedItemWidget extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                         textAlign: TextAlign.left,
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                      ),
-                    if (item.date != null)
-                      Text(
-                        _date,
-                        style: Theme.of(context).textTheme.caption,
-                        textAlign: TextAlign.left,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    if (item.author?.isNotEmpty ?? false)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Text(
-                          RSSFeedScreenStrings.rssFeedItemWidgetAuthor
-                              .replaceAll('#TAG', item.author!),
-                          style: Theme.of(context).textTheme.caption,
-                          textAlign: TextAlign.left,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
                       ),
                     if (item.url?.isNotEmpty ?? false)
                       TextButton(
@@ -96,7 +55,7 @@ class RSSFeedItemWidget extends StatelessWidget {
                           side: BorderSide.none,
                         ),
                         child: Text(
-                          RSSFeedScreenStrings.rssFeedItemWidgetMore,
+                          FavoritesScreenStrings.favoritesItemMore,
                           style: Theme.of(context).textTheme.button!.copyWith(
                                 decoration: TextDecoration.underline,
                                 fontWeight: FontWeight.w400,
@@ -120,15 +79,15 @@ class RSSFeedItemWidget extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(left: 8),
                 child: IconButton(
-                  icon: Icon(
-                    favoritesBloc.state.inFavorites(item)
-                        ? CupertinoIcons.star_fill
-                        : CupertinoIcons.star,
+                  icon: const Icon(
+                    CupertinoIcons.star_fill,
                     size: 24,
                     color: Colors.orangeAccent,
                   ),
                   onPressed: () {
-                    context.read<FavoritesBloc>().add(FavoritesAdd(item: item));
+                    context
+                        .read<FavoritesBloc>()
+                        .add(FavoritesRemove(item: item));
                   },
                 ),
               ),
@@ -138,4 +97,14 @@ class RSSFeedItemWidget extends StatelessWidget {
       ),
     );
   }
+
+  BorderSide get _borderSide => !_isLast
+      ? const BorderSide(
+          color: Colors.black12,
+        )
+      : BorderSide.none;
+
+  bool get _isFirst => index == 0;
+
+  bool get _isLast => index == length - 1;
 }

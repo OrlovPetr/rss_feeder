@@ -25,6 +25,14 @@ class FavoritesState extends Equatable {
     );
   }
 
+  /// Check and return if chosen item has in favorites
+  bool inFavorites(RSSFeedItem item) => favorites.any(
+        (RSSFeedItem favorite) =>
+            favorite.title == item.title &&
+            favorite.url == item.url &&
+            favorite.author == item.author,
+      );
+
   @override
   List<Object?> get props => [
         loadState,
