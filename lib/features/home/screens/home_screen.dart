@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rss_feeder/features/favorites/screens/favorites_screen.dart';
 import 'package:rss_feeder/features/feeds/screens/feeds_screen.dart';
 import 'package:rss_feeder/features/home/bloc/home_tabs_navigator.dart';
 import 'package:rss_feeder/features/home/models/home_tab.dart';
@@ -24,9 +25,7 @@ class HomeScreen extends StatelessWidget {
   Widget _body(HomeTab tab) {
     switch (tab) {
       case HomeTab.favorites:
-        return Container(
-          color: Colors.blue,
-        );
+        return const FavoritesScreen();
       case HomeTab.settings:
         return const SettingsScreen();
       case HomeTab.home:

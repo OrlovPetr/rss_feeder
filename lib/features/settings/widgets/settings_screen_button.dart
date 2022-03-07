@@ -23,8 +23,20 @@ class SettingsScreenButton extends StatelessWidget {
     this.value,
   }) : super(key: key);
 
+  Color _iconColor(ThemeData themeData) {
+    if (themeData == ThemeData.dark()) {
+      return Colors.orangeAccent;
+    } else {
+      return Colors.black26;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final SettingsState settingsState = context.read<SettingsBloc>().state;
+    final ThemeData themeData = ThemeService.currentTheme(
+        context, settingsState.appSettings.appThemeStyle);
+
     return TextButton(
       style: TextButton.styleFrom(
         padding: EdgeInsets.zero,
@@ -41,7 +53,7 @@ class SettingsScreenButton extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 8),
                 child: Icon(
                   iconData,
-                  color: Colors.black26,
+                  color: _iconColor(themeData),
                   size: 24,
                 ),
               ),

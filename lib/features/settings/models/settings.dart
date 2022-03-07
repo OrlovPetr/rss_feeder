@@ -21,14 +21,20 @@ extension AppThemeStyleExt on AppThemeStyle {
   String get label {
     switch (this) {
       case AppThemeStyle.system:
-        return 'Системная';
+        return 'Управляется системой';
       case AppThemeStyle.dark:
-        return 'Темная';
+        return 'Темная тема';
       case AppThemeStyle.light:
       default:
-        return 'Светлая';
+        return 'Светлая тема';
     }
   }
+
+  /// Return [List] of [String] labels for each [AppThemeStyle] enum item.
+  ///
+  /// Uses for pickers, checkboxes, radios
+  static List<String> get labels =>
+      AppThemeStyle.values.map((AppThemeStyle e) => e.label).toList();
 }
 
 /// Application settings

@@ -2,7 +2,10 @@ import 'package:rss_feeder/core/enums/environment.dart';
 import 'package:rss_feeder/core/logger/local_storage_logger.dart';
 import 'package:rss_feeder/core/logger/logger.dart';
 import 'package:rss_feeder/core/models/config.dart';
+import 'package:rss_feeder/features/favorites/repositories/favorites_repository.dart';
+import 'package:rss_feeder/features/feeds/providers/rss_feed_provider.dart';
 import 'package:rss_feeder/features/feeds/repositories/feed_repository.dart';
+import 'package:rss_feeder/features/feeds/repositories/rss_feed_repository.dart';
 import 'package:rss_feeder/features/settings/repository/settings_repository.dart';
 import 'package:rss_feeder/services/local_storage.dart';
 import 'package:rss_feeder/services/network.dart';
@@ -30,6 +33,12 @@ class AppContainer {
   /// Application [FeedRepository] entity
   final FeedRepository feedRepository;
 
+  /// Application [RSSFeedRepository] entity
+  final RSSFeedRepository rssFeedRepository;
+
+  /// Application [FavoritesRepository] entity
+  final FavoritesRepository favoritesRepository;
+
   /// Default [AppContainer] container
   AppContainer({
     required this.environment,
@@ -39,6 +48,8 @@ class AppContainer {
     required this.localStorageService,
     required this.settingsRepository,
     required this.feedRepository,
+    required this.rssFeedRepository,
+    required this.favoritesRepository,
   });
 
   /// Initialize application [AppContainer] entity
@@ -57,18 +68,22 @@ class AppContainer {
     final AppNetworkService networkService =
         AppNetworkService(baseRSSUrl: config.baseUrl);
     final AppLocalStorageService appLocalStorageService =
-        AppLocalStorageService(logger: appLogger);
+        AppLocalStorageService();
 
     await appLocalStorageService.init();
 
+    // Providers initialize
+    final RSSFeedProvider rssFeedProvider =
+        RSSFeedProvider(appNetworkService: networkService);
+
     // Repositories initialize
-    final SettingsRepository settingsRepository = SettingsRepository(
-      appLocalStorageService: appLocalStorageService,
-      appLogger: appLogger,
-    );
-    final FeedRepository feedRepository = FeedRepository(
-      appLogger: appLogger,
-    );
+    final SettingsRepository settingsRepository =
+        SettingsRepository(appLocalStorageService: appLocalStorageService);
+    const FeedRepository feedRepository = FeedRepository();
+    final RSSFeedRepository rssFeedRepository =
+        RSSFeedRepository(rssFeedProvider: rssFeedProvider);
+    final FavoritesRepository favoritesRepository =
+        FavoritesRepository(appLocalStorageService: appLocalStorageService);
 
     return AppContainer(
       environment: environment,
@@ -78,6 +93,8 @@ class AppContainer {
       localStorageService: appLocalStorageService,
       settingsRepository: settingsRepository,
       feedRepository: feedRepository,
+      rssFeedRepository: rssFeedRepository,
+      favoritesRepository: favoritesRepository,
     );
   }
 }

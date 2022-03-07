@@ -25,7 +25,11 @@ class FeedItem extends StatelessWidget {
           shape: const BeveledRectangleBorder(),
           side: BorderSide.none,
         ),
-        onPressed: () {},
+        onPressed: () {
+          final RSSFeedBloc rssFeedBloc = context.read<RSSFeedBloc>();
+          rssFeedBloc.add(GetRSSFeed(uri: feed.uri));
+          Navigator.pushNamed(context, Routes.rssFeed.name);
+        },
         child: DecoratedBox(
           decoration: BoxDecoration(
             border: Border(
@@ -41,14 +45,19 @@ class FeedItem extends StatelessWidget {
                 Expanded(
                   child: Text(
                     feed.name,
-                    style: Theme.of(context).textTheme.button,
+                    style: Theme.of(context).textTheme.subtitle1,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 if (feed.uri.isNotEmpty)
-                  const Icon(
-                    CupertinoIcons.right_chevron,
-                    size: 24,
-                    color: Colors.black26,
+                  const Padding(
+                    padding: EdgeInsets.only(left: 8),
+                    child: Icon(
+                      CupertinoIcons.right_chevron,
+                      size: 24,
+                      color: Colors.black26,
+                    ),
                   ),
               ],
             ),
