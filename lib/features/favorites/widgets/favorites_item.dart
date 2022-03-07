@@ -21,13 +21,21 @@ class FavoritesItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsState settingsState = context.read<SettingsBloc>().state;
+    final ThemeData themeData = ThemeService.currentThemeByContext(
+        context, settingsState.appSettings.appThemeStyle);
+
     return Padding(
       padding: EdgeInsets.only(
         top: _isFirst ? 20 : 0,
         bottom: _isLast ? 20 : 0,
       ),
       child: DecoratedBox(
-        decoration: BoxDecoration(border: Border(bottom: _borderSide)),
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: _borderSide(themeData),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.only(top: 16),
           child: Row(
@@ -98,10 +106,8 @@ class FavoritesItem extends StatelessWidget {
     );
   }
 
-  BorderSide get _borderSide => !_isLast
-      ? const BorderSide(
-          color: Colors.black12,
-        )
+  BorderSide _borderSide(ThemeData themeData) => !_isLast
+      ? BorderSide(color: ThemeService.itemBorderColor(themeData))
       : BorderSide.none;
 
   bool get _isFirst => index == 0;

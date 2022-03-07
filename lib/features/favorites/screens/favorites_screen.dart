@@ -21,7 +21,7 @@ class FavoritesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingsState settingsState = context.read<SettingsBloc>().state;
-    final ThemeData themeData = ThemeService.currentTheme(
+    final ThemeData themeData = ThemeService.currentThemeByContext(
         context, settingsState.appSettings.appThemeStyle);
 
     return BlocBuilder<FavoritesBloc, FavoritesState>(
@@ -29,7 +29,7 @@ class FavoritesScreen extends StatelessWidget {
         return Scaffold(
           appBar: AppBar(
             centerTitle: true,
-            backgroundColor: ThemeService.refreshIndicatorColor(themeData),
+            backgroundColor: Colors.black54,
             title:
                 const Text(FavoritesScreenStrings.favoritesScreenAppBarTitle),
             leading: null,

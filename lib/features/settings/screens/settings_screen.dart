@@ -51,7 +51,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (BuildContext context, SettingsState state) {
-          final ThemeData themeData = ThemeService.currentTheme(
+          final ThemeData themeData = ThemeService.currentThemeByContext(
               context, state.appSettings.appThemeStyle);
 
           return RefreshIndicator(

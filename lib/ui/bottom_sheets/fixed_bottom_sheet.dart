@@ -34,7 +34,7 @@ class FixedBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingsState settingsState = context.read<SettingsBloc>().state;
-    final ThemeData _currentData = ThemeService.currentTheme(
+    final ThemeData _currentData = ThemeService.currentThemeByContext(
       context,
       settingsState.appSettings.appThemeStyle,
     );

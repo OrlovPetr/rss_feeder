@@ -70,7 +70,7 @@ class AppMainWidget extends StatelessWidget {
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (BuildContext context, SettingsState state) => MaterialApp(
           navigatorKey: Catcher.navigatorKey,
-          theme: _getTheme(context, state),
+          theme: _getTheme(state),
           initialRoute: Routes.home.name,
           routes: _appRouter.routes(context),
         ),
@@ -78,6 +78,6 @@ class AppMainWidget extends StatelessWidget {
     );
   }
 
-  ThemeData _getTheme(BuildContext context, SettingsState state) =>
-      ThemeService.currentTheme(context, state.appSettings.appThemeStyle);
+  ThemeData _getTheme(SettingsState state) =>
+      ThemeService.currentTheme(state.appSettings.appThemeStyle);
 }
