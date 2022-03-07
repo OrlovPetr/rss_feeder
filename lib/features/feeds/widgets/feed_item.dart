@@ -17,6 +17,10 @@ class FeedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final SettingsState settingsState = context.read<SettingsBloc>().state;
+    final ThemeData themeData = ThemeService.currentThemeByContext(
+        context, settingsState.appSettings.appThemeStyle);
+
     return Padding(
       padding: const EdgeInsets.only(left: 20, right: 10),
       child: TextButton(
@@ -34,7 +38,7 @@ class FeedItem extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border(
               bottom: bottomBorder
-                  ? const BorderSide(color: Colors.black12)
+                  ? BorderSide(color: ThemeService.itemBorderColor(themeData))
                   : BorderSide.none,
             ),
           ),
@@ -51,12 +55,12 @@ class FeedItem extends StatelessWidget {
                   ),
                 ),
                 if (feed.uri.isNotEmpty)
-                  const Padding(
-                    padding: EdgeInsets.only(left: 8),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8),
                     child: Icon(
                       CupertinoIcons.right_chevron,
                       size: 24,
-                      color: Colors.black26,
+                      color: ThemeService.itemArrowColor(themeData),
                     ),
                   ),
               ],

@@ -34,7 +34,7 @@ class SettingsScreenButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final SettingsState settingsState = context.read<SettingsBloc>().state;
-    final ThemeData themeData = ThemeService.currentTheme(
+    final ThemeData themeData = ThemeService.currentThemeByContext(
         context, settingsState.appSettings.appThemeStyle);
 
     return TextButton(

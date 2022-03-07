@@ -6,6 +6,8 @@ import 'package:rss_feeder/core/models/route.dart';
 import 'package:rss_feeder/features/feeds/bloc/feeds_bloc.dart';
 import 'package:rss_feeder/features/feeds/bloc/rss_feed_bloc.dart';
 import 'package:rss_feeder/features/feeds/models/feed.dart';
+import 'package:rss_feeder/features/settings/bloc/settings_bloc.dart';
+import 'package:rss_feeder/services/theme_service.dart';
 import 'package:rss_feeder/ui/ui_kit.dart';
 
 part '../res.dart';
