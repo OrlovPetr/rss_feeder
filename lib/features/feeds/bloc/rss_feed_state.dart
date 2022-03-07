@@ -11,11 +11,15 @@ class RSSFeedState extends Equatable {
   /// base URI of RSS feed
   final String? uri;
 
+  /// Refresh duration time in minutes
+  final int refreshDuration;
+
   /// Default [RSSFeedState] constructor
   const RSSFeedState({
     required this.loadState,
     this.appRss,
     this.uri,
+    required this.refreshDuration,
   });
 
   /// Copy With
@@ -23,11 +27,13 @@ class RSSFeedState extends Equatable {
     LoadState? loadState,
     AppRSS? appRss,
     String? uri,
+    int? refreshDuration,
   }) {
     return RSSFeedState(
       loadState: loadState ?? this.loadState,
       appRss: appRss ?? this.appRss,
       uri: (uri?.isNotEmpty ?? false) ? uri : this.uri,
+      refreshDuration: refreshDuration ?? this.refreshDuration,
     );
   }
 
@@ -36,10 +42,11 @@ class RSSFeedState extends Equatable {
         loadState,
         appRss,
         uri,
+        refreshDuration,
       ];
 
   @override
   String toString() {
-    return 'RSSFeedState ($hashCode): {loadState: $loadState | appRss: $appRss | uri: $uri}';
+    return 'RSSFeedState ($hashCode): {loadState: $loadState | appRss: $appRss | uri: $uri | refreshDuration: $refreshDuration}';
   }
 }

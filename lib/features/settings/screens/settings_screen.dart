@@ -5,6 +5,7 @@ import 'package:rss_feeder/core/enums/load_state.dart';
 import 'package:rss_feeder/core/exceptions/exceptions.dart';
 import 'package:rss_feeder/core/extensions/list_extension.dart';
 import 'package:rss_feeder/features/favorites/bloc/favorites_bloc.dart';
+import 'package:rss_feeder/features/feeds/bloc/rss_feed_bloc.dart';
 import 'package:rss_feeder/features/settings/bloc/settings_bloc.dart';
 import 'package:rss_feeder/features/settings/models/settings.dart';
 import 'package:rss_feeder/services/theme_service.dart';
@@ -193,12 +194,16 @@ class _SettingsScreenState extends State<SettingsScreen> {
     if (value ?? false) {
       setState(() {
         final SettingsBloc settingsBloc = context.read<SettingsBloc>();
+        final RSSFeedBloc rssFeedBloc = context.read<RSSFeedBloc>();
+        final int refreshDuration =
+            SettingsResources.refreshDurationOptions[_refreshDurationIndex];
         final AppSettings newAppSettings = AppSettings(
           appThemeStyle: settingsBloc.state.appSettings.appThemeStyle,
-          refreshDuration:
-              SettingsResources.refreshDurationOptions[_refreshDurationIndex],
+          refreshDuration: refreshDuration,
         );
         settingsBloc.add(UpdateSettings(appSettings: newAppSettings));
+        rssFeedBloc.add(
+            UpdateRefreshDurationRSSFeed(refreshDuration: refreshDuration));
       });
     } else {
       setState(() {

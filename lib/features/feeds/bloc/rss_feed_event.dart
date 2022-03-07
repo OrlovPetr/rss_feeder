@@ -22,3 +22,12 @@ class GetRSSFeed extends RSSFeedEvent {
         uri,
       ];
 }
+
+/// [UpdateRefreshDurationRSSFeed]
+class UpdateRefreshDurationRSSFeed extends RSSFeedEvent {
+  /// New refresh duration in minutes
+  final int refreshDuration;
+
+  /// Default [UpdateRefreshDurationRSSFeed] constructor
+  UpdateRefreshDurationRSSFeed({required this.refreshDuration});
+}

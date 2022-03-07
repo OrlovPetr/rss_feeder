@@ -55,8 +55,10 @@ class AppMainWidget extends StatelessWidget {
           ),
         ),
         BlocProvider<RSSFeedBloc>(
-          create: (BuildContext context) =>
-              RSSFeedBloc(rssFeedRepository: container.rssFeedRepository),
+          create: (BuildContext context) => RSSFeedBloc(
+            rssFeedRepository: container.rssFeedRepository,
+            refreshDuration: appSettings.refreshDuration,
+          ),
         ),
         BlocProvider<FavoritesBloc>(
           create: (BuildContext context) => FavoritesBloc(

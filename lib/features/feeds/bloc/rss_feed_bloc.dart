@@ -16,10 +16,12 @@ class RSSFeedBloc extends Bloc<RSSFeedEvent, RSSFeedState> {
   /// Default [RSSFeedBloc] constructor
   RSSFeedBloc({
     required RSSFeedRepository rssFeedRepository,
+    required int refreshDuration,
   })  : _rssFeedRepository = rssFeedRepository,
         super(
-          const RSSFeedState(
+          RSSFeedState(
             loadState: LoadState.initial,
+            refreshDuration: refreshDuration,
           ),
         );
 
@@ -27,6 +29,26 @@ class RSSFeedBloc extends Bloc<RSSFeedEvent, RSSFeedState> {
   Stream<RSSFeedState> mapEventToState(RSSFeedEvent event) async* {
     if (event is GetRSSFeed) {
       yield* _getRSSFeedToState(event);
+    } else if (event is UpdateRefreshDurationRSSFeed) {
+      yield* _updateRefreshDurationRSSFeedToState(event);
+    }
+  }
+
+  Stream<RSSFeedState> _updateRefreshDurationRSSFeedToState(
+    UpdateRefreshDurationRSSFeed event,
+  ) async* {
+    try {
+      yield state.copyWith(loadState: LoadState.loading);
+
+      _refresh(refreshDuration: event.refreshDuration);
+
+      yield state.copyWith(
+        loadState: LoadState.success,
+        refreshDuration: event.refreshDuration,
+      );
+    } catch (e) {
+      yield state.copyWith(loadState: LoadState.failure);
+      rethrow;
     }
   }
 
@@ -45,6 +67,8 @@ class RSSFeedBloc extends Bloc<RSSFeedEvent, RSSFeedState> {
 
       final AppRSS? rss = await _rssFeedRepository.getRSSFeed(event.uri!);
 
+      _refresh();
+
       yield state.copyWith(
         loadState: LoadState.success,
         appRss: rss,
@@ -54,5 +78,12 @@ class RSSFeedBloc extends Bloc<RSSFeedEvent, RSSFeedState> {
       yield state.copyWith(loadState: LoadState.failure);
       rethrow;
     }
+  }
+
+  void _refresh({int? refreshDuration}) {
+    Future.delayed(Duration(minutes: refreshDuration ?? state.refreshDuration),
+        () {
+      add(GetRSSFeed(uri: state.uri));
+    });
   }
 }

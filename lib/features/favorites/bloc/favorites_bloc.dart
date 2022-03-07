@@ -53,6 +53,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       );
     } catch (e) {
       yield state.copyWith(loadState: LoadState.failure);
+      rethrow;
     }
   }
 
@@ -73,6 +74,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       );
     } catch (e) {
       yield state.copyWith(loadState: LoadState.failure);
+      rethrow;
     }
   }
 
@@ -90,6 +92,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       );
     } catch (e) {
       yield state.copyWith(loadState: LoadState.failure);
+      rethrow;
     }
   }
 
@@ -107,6 +110,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       );
     } catch (e) {
       yield state.copyWith(loadState: LoadState.failure);
+      rethrow;
     }
   }
 }
